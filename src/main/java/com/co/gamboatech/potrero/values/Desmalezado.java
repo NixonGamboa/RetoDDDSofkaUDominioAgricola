@@ -1,4 +1,16 @@
 package com.co.gamboatech.potrero.values;
 
-public class Desmalezado {
+import co.com.sofka.domain.generic.ValueObject;
+
+public class Desmalezado implements ValueObject<Boolean> {
+    private Boolean desmalezado;
+
+    public Desmalezado(Boolean desmalezado) {
+        this.desmalezado = desmalezado;
+    }
+
+    @Override
+    public Boolean value() {
+        return desmalezado;
+    }
 }

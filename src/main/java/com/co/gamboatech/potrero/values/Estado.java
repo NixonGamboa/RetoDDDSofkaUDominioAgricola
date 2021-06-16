@@ -1,4 +1,17 @@
 package com.co.gamboatech.potrero.values;
 
-public class Estado {
+import co.com.sofka.domain.generic.ValueObject;
+
+public class Estado implements ValueObject<String> {
+    private String estado;
+
+    public Estado(String estado) {
+        this.estado = estado;
+    }
+
+
+    @Override
+    public String value() {
+        return estado;
+    }
 }

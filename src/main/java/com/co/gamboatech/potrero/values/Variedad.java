@@ -1,4 +1,16 @@
 package com.co.gamboatech.potrero.values;
 
-public class Variedad {
+import co.com.sofka.domain.generic.ValueObject;
+
+public class Variedad implements ValueObject<String> {
+    private String variedad;
+
+    public Variedad(String variedad) {
+        this.variedad = variedad;
+    }
+
+    @Override
+    public String value() {
+        return variedad;
+    }
 }
