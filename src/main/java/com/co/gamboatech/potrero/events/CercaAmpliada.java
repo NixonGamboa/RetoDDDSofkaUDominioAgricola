@@ -6,19 +6,14 @@ import com.co.gamboatech.potrero.values.Longitud;
 
 public class CercaAmpliada extends DomainEvent {
     private Longitud longitud;
-    private Area area;
 
-    public CercaAmpliada( Longitud longitud, Area area) {
+    public CercaAmpliada( Longitud longitud) {
         super("gamboatech.potrero.cercaampliada");
         this.longitud = longitud;
-        this.area = area;
     }
 
     public Longitud longitud() {
         return longitud;
     }
 
-    public Area area() {
-        return area;
-    }
 }

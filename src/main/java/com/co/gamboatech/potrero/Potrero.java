@@ -15,22 +15,7 @@ public class Potrero extends AggregateEvent<PotreroId> {
     protected Pasto pasto;
     protected Cerca cerca;
     protected Sostenimiento sostenimiento;
-    protected Carga carga;
-
-    public Potrero(PotreroId entityId, Pasto pasto, Cerca cerca, Sostenimiento sostenimiento) {
-        super(entityId);
-        Objects.requireNonNull(pasto);
-        Objects.requireNonNull(cerca);
-        this.pasto = pasto;
-        this.cerca = cerca;
-        this.sostenimiento = sostenimiento;
-        appendChange(new PotreroCreado(pasto,cerca, sostenimiento)).apply();
-    }
-
-    private Potrero(PotreroId potreroId){
-        super(potreroId);
-        subscribe(new PotreroChange(this));
-    }
+    protected Area area;
 
     public static Potrero from (PotreroId potreroId, List<DomainEvent> events){
         var potrero = new Potrero(potreroId);
@@ -38,10 +23,37 @@ public class Potrero extends AggregateEvent<PotreroId> {
         return potrero;
     }
 
+    private Potrero(PotreroId potreroId){
+        super(potreroId);
+        subscribe(new PotreroChange(this));
+    }
 
-    public void actualizarCarga(Carga carga){
-        Objects.requireNonNull(carga);
-        appendChange(new CargaActualizada(carga)).apply();
+
+    public Potrero(PotreroId entityId, Area area) {
+        super(entityId);
+        Objects.requireNonNull(area);
+        appendChange(new PotreroCreado(area)).apply();
+    }
+
+    public void asociarPasto(PastoId pastoId,Densidad densidad){
+        Objects.requireNonNull(pastoId);
+        Objects.requireNonNull(densidad);
+        appendChange(new PastoAsociado(pastoId,densidad)).apply();
+    }
+    public void asociarCerca(CercaId cercaId, Longitud longitud){
+        Objects.requireNonNull(cercaId);
+        Objects.requireNonNull(longitud);
+        appendChange(new CercaAsociada(cercaId,longitud)).apply();
+    }
+    public void asociarSostenimiento(SostenimientoId sostenimientoId, Regado regado){
+        Objects.requireNonNull(sostenimientoId);
+        Objects.requireNonNull(regado);
+        appendChange(new SostenimientoAsociado(sostenimientoId,regado)).apply();
+    }
+
+    public void actualizarArea(Area area){
+        Objects.requireNonNull(area);
+        appendChange(new AreaActualizada(area)).apply();
     }
     public void sembrarPasto(Densidad densidad){
         Objects.requireNonNull(densidad);
@@ -50,32 +62,14 @@ public class Potrero extends AggregateEvent<PotreroId> {
     public void regarSostenimiento(){
         appendChange(new SostenimientoRegado()).apply();
     }
-    public void desmalezarSostenimiento(){
-        appendChange(new SostenimientoDesmalezado()).apply();
-    }
-    public void fertilizarSostenimiento(){
-        appendChange(new SostenimientoFertilizado()).apply();
-    }
     public void porRegarSostenimiento(){
         appendChange(new SostenimientoPorRegar()).apply();
     }
-    public void porDesmalezarSostenimiento(){
-        appendChange(new SostenimientoPorDesmalezar()).apply();
-    }
-    public void porFertilizarSostenimiento(){
-        appendChange(new SostenimientoPorFertilizar()).apply();
-    }
-    public void ampliarCerca(Longitud longitud, Area area){
+    public void ampliarCerca(Longitud longitud){
         Objects.requireNonNull(longitud);
-        Objects.requireNonNull(area);
-        appendChange(new CercaAmpliada(longitud,area)).apply();
+        appendChange(new CercaAmpliada(longitud)).apply();
     }
-    public void registrarDanioCerca(){
-        appendChange(new DanioCercaRegistrado()).apply();
-    }
-    public void repararCerca(){
-        appendChange(new CercaReparada()).apply();
-    }
+
 
     public Pasto pasto() {
         return pasto;
@@ -89,7 +83,7 @@ public class Potrero extends AggregateEvent<PotreroId> {
         return sostenimiento;
     }
 
-    public Carga carga() {
-        return carga;
+    public Area area() {
+        return area;
     }
 }

@@ -3,7 +3,7 @@ package com.co.gamboatech.potrero.values;
 import co.com.sofka.domain.generic.ValueObject;
 
 public class Regado implements ValueObject<Boolean> {
-    private Boolean regado;
+    private final Boolean regado;
 
     public Regado(Boolean regado) {
         this.regado = regado;

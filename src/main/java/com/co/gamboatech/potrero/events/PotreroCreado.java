@@ -4,28 +4,19 @@ import co.com.sofka.domain.generic.DomainEvent;
 import com.co.gamboatech.potrero.entities.Cerca;
 import com.co.gamboatech.potrero.entities.Pasto;
 import com.co.gamboatech.potrero.entities.Sostenimiento;
+import com.co.gamboatech.potrero.values.Area;
 
 public class PotreroCreado extends DomainEvent {
-    private Pasto pasto;
-    private Cerca cerca;
-    private Sostenimiento sostenimiento;
 
-    public PotreroCreado(Pasto pasto, Cerca cerca, Sostenimiento sostenimiento) {
+    private Area area;
+
+    public PotreroCreado(Area area) {
         super("gamboatech.potrero.potrerocreado");
-        this.pasto = pasto;
-        this.cerca = cerca;
-        this.sostenimiento = sostenimiento;
+        this.area = area;
     }
 
-    public Pasto pasto() {
-        return pasto;
+    public Area area() {
+        return area;
     }
 
-    public Cerca cerca() {
-        return cerca;
-    }
-
-    public Sostenimiento sostenimiento() {
-        return sostenimiento;
-    }
 }

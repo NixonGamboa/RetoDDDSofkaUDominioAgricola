@@ -18,14 +18,8 @@ public class Cerca extends Entity<CercaId> {
         this.area = area;
         this.estado = Estado.cercaNueva();
     }
-    public void ampliar(Longitud longitud, Area area){
+    public void ampliar(Longitud longitud){
         this.longitud= Objects.requireNonNull(longitud);
-        this.area= Objects.requireNonNull(area);
     }
-    public void registrarDanio(){
-        this.estado = estado.registrarDanio();
-    }
-    public void reparar(){
-        this.estado = estado.reparar();
-    }
+
 }
