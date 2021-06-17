@@ -1,12 +1,14 @@
 package com.co.gamboatech.potrero;
 
 import co.com.sofka.domain.generic.AggregateEvent;
+import co.com.sofka.domain.generic.DomainEvent;
 import com.co.gamboatech.potrero.entities.Cerca;
 import com.co.gamboatech.potrero.entities.Pasto;
 import com.co.gamboatech.potrero.entities.Sostenimiento;
 import com.co.gamboatech.potrero.events.*;
 import com.co.gamboatech.potrero.values.*;
 
+import java.util.List;
 import java.util.Objects;
 
 public class Potrero extends AggregateEvent<PotreroId> {
@@ -15,14 +17,27 @@ public class Potrero extends AggregateEvent<PotreroId> {
     protected Sostenimiento sostenimiento;
     protected Carga carga;
 
-    public Potrero(PotreroId entityId, Pasto pasto, Cerca cerca) {
+    public Potrero(PotreroId entityId, Pasto pasto, Cerca cerca, Sostenimiento sostenimiento) {
         super(entityId);
         Objects.requireNonNull(pasto);
         Objects.requireNonNull(cerca);
         this.pasto = pasto;
         this.cerca = cerca;
-        appendChange(new PotreroCreado(pasto,cerca)).apply();
+        this.sostenimiento = sostenimiento;
+        appendChange(new PotreroCreado(pasto,cerca, sostenimiento)).apply();
     }
+
+    private Potrero(PotreroId potreroId){
+        super(potreroId);
+        subscribe(new PotreroChange(this));
+    }
+
+    public static Potrero from (PotreroId potreroId, List<DomainEvent> events){
+        var potrero = new Potrero(potreroId);
+        events.forEach(potrero::applyEvent);
+        return potrero;
+    }
+
 
     public void actualizarCarga(Carga carga){
         Objects.requireNonNull(carga);

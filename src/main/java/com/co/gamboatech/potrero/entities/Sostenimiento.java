@@ -36,4 +36,8 @@ public class Sostenimiento extends Entity<SostenimientoId> {
     public void porFertilizar(){
         this.fertilizado = Fertilizado.porFertilizar();
     }
+
+    public Fertilizado fertilizado() {
+        return fertilizado;
+    }
 }
