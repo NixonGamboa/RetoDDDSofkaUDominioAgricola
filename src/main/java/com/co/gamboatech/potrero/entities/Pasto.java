@@ -6,6 +6,8 @@ import com.co.gamboatech.potrero.values.PastoId;
 import com.co.gamboatech.potrero.values.TipoPasto;
 import com.co.gamboatech.potrero.values.Variedad;
 
+import java.util.Objects;
+
 public class Pasto extends Entity<PastoId> {
     private TipoPasto tipoPasto;
     private Variedad variedad;
@@ -15,5 +17,8 @@ public class Pasto extends Entity<PastoId> {
         super(entityId);
         this.tipoPasto = tipoPasto;
         this.variedad = variedad;
+    }
+    public void sembrar(Densidad densidad){
+        this.densidad= Objects.requireNonNull(densidad);
     }
 }

@@ -9,6 +9,13 @@ public class Regado implements ValueObject<Boolean> {
         this.regado = regado;
     }
 
+    public static Regado regar() {
+        return new Regado(true);
+    }
+    public static Regado porRegar() {
+        return new Regado(false);
+    }
+
     @Override
     public Boolean value() {
         return regado;

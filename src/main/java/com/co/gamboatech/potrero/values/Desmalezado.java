@@ -9,6 +9,14 @@ public class Desmalezado implements ValueObject<Boolean> {
         this.desmalezado = desmalezado;
     }
 
+    public static Desmalezado desmalezar() {
+        return new Desmalezado(true);
+    }
+
+    public static Desmalezado porDesmalezar() {
+        return new Desmalezado(false);
+    }
+
     @Override
     public Boolean value() {
         return desmalezado;

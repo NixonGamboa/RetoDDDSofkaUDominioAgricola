@@ -9,6 +9,13 @@ public class Fertilizado implements ValueObject<Boolean> {
         this.fertilizado = fertilizado;
     }
 
+    public static Fertilizado fertilizar() {
+        return new Fertilizado(true);
+    }
+
+    public static Fertilizado porFertilizar() {
+        return new Fertilizado(false);
+    }
     @Override
     public Boolean value() {
         return fertilizado;
