@@ -1,4 +1,6 @@
 package com.co.gamboatech.potrero.commands;
 
-public class ActualizarArea {
+import co.com.sofka.domain.generic.Command;
+
+public class ActualizarArea implements Command {
 }

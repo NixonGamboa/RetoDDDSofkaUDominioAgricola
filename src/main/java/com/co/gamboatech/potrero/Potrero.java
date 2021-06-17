@@ -35,12 +35,14 @@ public class Potrero extends AggregateEvent<PotreroId> {
         appendChange(new PotreroCreado(area)).apply();
     }
 
-    public void asociarPasto(PastoId pastoId,Densidad densidad){
+    public void asociarPasto(Densidad densidad){
+        var pastoId = new PastoId();
         Objects.requireNonNull(pastoId);
         Objects.requireNonNull(densidad);
         appendChange(new PastoAsociado(pastoId,densidad)).apply();
     }
-    public void asociarCerca(CercaId cercaId, Longitud longitud){
+    public void asociarCerca( Longitud longitud){
+        var cercaId = new CercaId();
         Objects.requireNonNull(cercaId);
         Objects.requireNonNull(longitud);
         appendChange(new CercaAsociada(cercaId,longitud)).apply();
