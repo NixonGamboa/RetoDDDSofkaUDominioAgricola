@@ -18,21 +18,22 @@ public class Potrero extends AggregateEvent<PotreroId> {
     protected Sostenimiento sostenimiento;
     protected Area area;
 
+    private Potrero(PotreroId potreroId){
+        super(potreroId);
+        subscribe(new PotreroChange(this));
+    }
+
     public static Potrero from (PotreroId potreroId, List<DomainEvent> events){
         var potrero = new Potrero(potreroId);
         events.forEach(potrero::applyEvent);
         return potrero;
     }
 
-    private Potrero(PotreroId potreroId){
-        super(potreroId);
-        subscribe(new PotreroChange(this));
-    }
-
 
     public Potrero(PotreroId entityId, Area area) {
-        super(entityId);
+        super(Objects.requireNonNull(entityId));
         Objects.requireNonNull(area);
+        subscribe(new PotreroChange(this));
         appendChange(new PotreroCreado(area)).apply();
     }
 
