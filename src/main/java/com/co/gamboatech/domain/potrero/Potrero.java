@@ -1,5 +1,6 @@
 package com.co.gamboatech.domain.potrero;
 
+import co.com.sofka.business.support.ResponseEvents;
 import co.com.sofka.domain.generic.AggregateEvent;
 import co.com.sofka.domain.generic.DomainEvent;
 import com.co.gamboatech.domain.potrero.entities.Cerca;
@@ -27,6 +28,7 @@ public class Potrero extends AggregateEvent<PotreroId> {
         super(potreroId);
         subscribe(new PotreroChange(this));
     }
+    //Por que si no meto pastoAsociado aqui en potrerochange igual funciona
 
 
     public Potrero(PotreroId entityId, Area area) {
@@ -89,4 +91,6 @@ public class Potrero extends AggregateEvent<PotreroId> {
     public Area area() {
         return area;
     }
+
+
 }

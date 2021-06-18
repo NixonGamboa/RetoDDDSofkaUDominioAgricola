@@ -1,7 +1,11 @@
 package com.co.gamboatech.domain.potrero;
 
 import co.com.sofka.domain.generic.EventChange;
+import com.co.gamboatech.domain.potrero.entities.Pasto;
+import com.co.gamboatech.domain.potrero.entities.Sostenimiento;
 import com.co.gamboatech.domain.potrero.events.*;
+
+import java.util.Objects;
 
 public class PotreroChange extends EventChange {
     public PotreroChange(Potrero potrero) {
@@ -10,6 +14,11 @@ public class PotreroChange extends EventChange {
             potrero.sostenimiento=null;
             potrero.cerca=null;
             potrero.pasto=null;
+        });
+        apply((SostenimientoAsociado event)->{
+            potrero.sostenimiento= new Sostenimiento(
+                    event.sostenimientoId(),
+                    event.regado());
         });
         apply((AreaActualizada event)->{
             potrero.area= event.area();
@@ -20,14 +29,16 @@ public class PotreroChange extends EventChange {
         });
         apply((PastoSembrado event)->{
             var pasto = potrero.pasto;
-            pasto.sembrar(event.densidad());
+            if(Objects.isNull(pasto)){
+                potrero.pasto=Pasto.of();
+            }
+            potrero.pasto.sembrar(event.densidad());
         });
         apply((SostenimientoPorRegar event)->{
             potrero.sostenimiento.porRegar();
         });
         apply((SostenimientoRegado event)->{
             var sostenimiento= potrero.sostenimiento;
-            //Es correcta esta asignacion?
             if(sostenimiento.regado().value()){
                 throw new IllegalArgumentException("No debes regar un potrero ya regado");
             }

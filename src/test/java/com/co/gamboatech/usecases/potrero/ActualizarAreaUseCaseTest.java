@@ -4,15 +4,11 @@ import co.com.sofka.business.generic.UseCaseHandler;
 import co.com.sofka.business.repository.DomainEventRepository;
 import co.com.sofka.business.support.RequestCommand;
 import co.com.sofka.domain.generic.DomainEvent;
-import com.co.gamboatech.domain.potrero.commands.AsociarPasto;
-import com.co.gamboatech.domain.potrero.commands.AsociarSostenimiento;
-import com.co.gamboatech.domain.potrero.events.PastoAsociado;
+import com.co.gamboatech.domain.potrero.commands.ActualizarArea;
+import com.co.gamboatech.domain.potrero.events.AreaActualizada;
 import com.co.gamboatech.domain.potrero.events.PotreroCreado;
-import com.co.gamboatech.domain.potrero.events.SostenimientoAsociado;
 import com.co.gamboatech.domain.potrero.values.Area;
-import com.co.gamboatech.domain.potrero.values.Densidad;
 import com.co.gamboatech.domain.potrero.values.PotreroId;
-import com.co.gamboatech.domain.potrero.values.Regado;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,40 +19,36 @@ import java.util.List;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class AsociarSostenimientoUseCaseTest {
-    private AsociarSostenimientoUseCase asociarSostenimientoUseCase;
+public class ActualizarAreaUseCaseTest {
+    private ActualizarAreaUseCase actualizarAreaUseCase;
 
     @Mock
     private DomainEventRepository repository;
 
     @BeforeEach
     public void setup(){
-        asociarSostenimientoUseCase = new AsociarSostenimientoUseCase();
+        actualizarAreaUseCase = new ActualizarAreaUseCase();
         repository = mock(DomainEventRepository.class);
-        asociarSostenimientoUseCase.addRepository(repository);
+        actualizarAreaUseCase.addRepository(repository);
     }
 
     @Test
-    void asociarSostenimientoHappyPath(){
+    void actualizarAreaHappyPath(){
         //Arrange
-        var command = new AsociarSostenimiento(
-                PotreroId.of("Id02"),
-                new Regado(false));
-        when(repository.getEventsBy("Id02")).thenReturn(events());
-
+        var command = new ActualizarArea(
+                PotreroId.of("Id03"),
+                new Area(900));
+        when(repository.getEventsBy("Id03")).thenReturn(events());
         //Act
         var response = UseCaseHandler.getInstance().syncExecutor(
-                asociarSostenimientoUseCase, new RequestCommand<>(command)
+                actualizarAreaUseCase,new RequestCommand<>(command)
         ).orElseThrow();
         var events = response.getDomainEvents();
 
-
         //Asserts
-        SostenimientoAsociado sostenimientoAsociado = (SostenimientoAsociado) events.get(0);
-        Assertions.assertEquals(false,sostenimientoAsociado.regado().value());
-
+        AreaActualizada areaActualizada = (AreaActualizada) events.get(0);
+        Assertions.assertEquals(900,areaActualizada.area().value());
     }
-
     private List<DomainEvent> events() {
         return List.of(new PotreroCreado(
                 new Area(200) ));

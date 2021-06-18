@@ -13,6 +13,12 @@ public class Pasto extends Entity<PastoId> {
         super(entityId);
         this.densidad=densidad;
     }
+    private Pasto(){
+        super(new PastoId());
+    }
+    public static Pasto of(){
+        return new Pasto();
+    }
     public void sembrar(Densidad densidad){
         this.densidad= Objects.requireNonNull(densidad);
     }

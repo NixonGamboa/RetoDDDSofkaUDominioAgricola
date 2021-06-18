@@ -1,9 +1,10 @@
 package com.co.gamboatech.domain.potrero.events;
 
+import co.com.sofka.domain.generic.DomainEvent;
 import com.co.gamboatech.domain.potrero.values.CercaId;
 import com.co.gamboatech.domain.potrero.values.Longitud;
 
-public class CercaAsociada extends co.com.sofka.domain.generic.DomainEvent {
+public class CercaAsociada extends DomainEvent {
     private CercaId cercaId;
     private Longitud longitud;
 

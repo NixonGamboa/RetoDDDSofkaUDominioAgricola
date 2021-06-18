@@ -7,9 +7,9 @@ import com.co.gamboatech.domain.potrero.values.SostenimientoId;
 public class Sostenimiento extends Entity<SostenimientoId> {
     private Regado regado;
 
-    public Sostenimiento(SostenimientoId entityId) {
+    public Sostenimiento(SostenimientoId entityId, Regado regado) {
         super(entityId);
-        this.regado = Regado.regar();
+        this.regado = regado;
     }
 
     public void regar(){
