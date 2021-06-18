@@ -47,7 +47,8 @@ public class Potrero extends AggregateEvent<PotreroId> {
         Objects.requireNonNull(longitud);
         appendChange(new CercaAsociada(cercaId,longitud)).apply();
     }
-    public void asociarSostenimiento(SostenimientoId sostenimientoId, Regado regado){
+    public void asociarSostenimiento(Regado regado){
+        var sostenimientoId = new SostenimientoId();
         Objects.requireNonNull(sostenimientoId);
         Objects.requireNonNull(regado);
         appendChange(new SostenimientoAsociado(sostenimientoId,regado)).apply();
