@@ -12,6 +12,12 @@ public class Cerca extends Entity<CercaId> {
         super(entityId);
         this.longitud = longitud;
     }
+    private Cerca(){
+        super(new CercaId());
+    }
+    public static Cerca of(){
+        return new Cerca();
+    }
     public void ampliar(Longitud longitud){
         this.longitud= Objects.requireNonNull(longitud);
     }

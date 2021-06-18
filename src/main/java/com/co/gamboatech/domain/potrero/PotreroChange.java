@@ -1,6 +1,7 @@
 package com.co.gamboatech.domain.potrero;
 
 import co.com.sofka.domain.generic.EventChange;
+import com.co.gamboatech.domain.potrero.entities.Cerca;
 import com.co.gamboatech.domain.potrero.entities.Pasto;
 import com.co.gamboatech.domain.potrero.entities.Sostenimiento;
 import com.co.gamboatech.domain.potrero.events.*;
@@ -24,14 +25,15 @@ public class PotreroChange extends EventChange {
             potrero.area= event.area();
         });
         apply((CercaAmpliada event)->{
-            var cerca = potrero.cerca;
-            cerca.ampliar(event.longitud());
+            if(Objects.isNull(potrero.cerca)){
+                potrero.cerca = Cerca.of();
+            }
+            potrero.cerca.ampliar(event.longitud());
         });
         apply((PastoSembrado event)->{
             var pasto = potrero.pasto;
             if(Objects.isNull(pasto)){
-                potrero.pasto=Pasto.of();
-            }
+                potrero.pasto=Pasto.of();}
             potrero.pasto.sembrar(event.densidad());
         });
         apply((SostenimientoPorRegar event)->{
