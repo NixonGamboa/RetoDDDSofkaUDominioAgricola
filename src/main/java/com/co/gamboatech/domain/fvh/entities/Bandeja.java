@@ -25,4 +25,8 @@ public class Bandeja extends Entity {
     public void cambiarEtapa(Etapa etapa){
         this.etapa= Objects.requireNonNull(etapa);
     }
+
+    public Etapa etapa() {
+        return etapa;
+    }
 }

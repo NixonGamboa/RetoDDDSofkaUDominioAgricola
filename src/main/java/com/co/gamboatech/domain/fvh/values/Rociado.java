@@ -6,10 +6,10 @@ import com.co.gamboatech.domain.potrero.values.Regado;
 import java.util.Objects;
 
 public class Rociado implements ValueObject<Boolean> {
-    private final Boolean rociado;
+    private final Boolean value;
 
-    public Rociado(Boolean rociado) {
-        this.rociado = Objects.requireNonNull(rociado);
+    public Rociado(Boolean value) {
+        this.value = Objects.requireNonNull(value);
     }
 
     public static Rociado rociar() {
@@ -21,6 +21,6 @@ public class Rociado implements ValueObject<Boolean> {
 
     @Override
     public Boolean value() {
-        return rociado;
+        return value;
     }
 }
