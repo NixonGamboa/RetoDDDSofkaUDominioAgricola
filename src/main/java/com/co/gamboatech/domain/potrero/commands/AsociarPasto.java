@@ -17,7 +17,7 @@ public class AsociarPasto implements Command {
         return potreroId;
     }
 
-    public Densidad getDensidad() {
+    public Densidad densidad() {
         return densidad;
     }
 }

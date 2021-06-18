@@ -7,6 +7,9 @@ public class PotreroChange extends EventChange {
     public PotreroChange(Potrero potrero) {
         apply((PotreroCreado event)->{
             potrero.area= event.area();
+            potrero.sostenimiento=null;
+            potrero.cerca=null;
+            potrero.pasto=null;
         });
         apply((AreaActualizada event)->{
             potrero.area= event.area();

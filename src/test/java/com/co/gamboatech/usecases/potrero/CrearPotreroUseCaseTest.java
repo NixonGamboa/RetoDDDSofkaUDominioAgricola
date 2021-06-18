@@ -21,7 +21,7 @@ public class CrearPotreroUseCaseTest {
     void crearPotreroHappyPath(){
         //Arrange
         var command = new CrearPotrero(
-                PotreroId.of("ID01"),
+                PotreroId.of("Id01"),
                 new Area(500));
         //Act
         var response = UseCaseHandler.getInstance().syncExecutor(
