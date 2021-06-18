@@ -16,6 +16,16 @@ public class PotreroChange extends EventChange {
             potrero.cerca=null;
             potrero.pasto=null;
         });
+        apply((PastoAsociado event)->{
+            potrero.pasto= new Pasto(
+                    event.pastoId(),
+                    event.densidad());
+        });
+        apply((CercaAsociada event)->{
+            potrero.cerca= new Cerca(
+                    event.cercaId(),
+                    event.longitud());
+        });
         apply((SostenimientoAsociado event)->{
             potrero.sostenimiento= new Sostenimiento(
                     event.sostenimientoId(),
@@ -41,7 +51,7 @@ public class PotreroChange extends EventChange {
         });
         apply((SostenimientoRegado event)->{
             var sostenimiento= potrero.sostenimiento;
-            if(sostenimiento.regado().value()){
+            if(Boolean.TRUE.equals(sostenimiento.regado().value())){
                 throw new IllegalArgumentException("No debes regar un potrero ya regado");
             }
             sostenimiento.regar();

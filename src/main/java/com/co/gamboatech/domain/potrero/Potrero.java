@@ -28,7 +28,6 @@ public class Potrero extends AggregateEvent<PotreroId> {
         super(potreroId);
         subscribe(new PotreroChange(this));
     }
-    //Por que si no meto pastoAsociado aqui en potrerochange igual funciona
 
 
     public Potrero(PotreroId entityId, Area area) {
@@ -65,10 +64,10 @@ public class Potrero extends AggregateEvent<PotreroId> {
         appendChange(new PastoSembrado(densidad)).apply();
     }
     public void regarSostenimiento(){
-        appendChange(new SostenimientoRegado()).apply();
+        appendChange(new SostenimientoRegado(Regado.regar())).apply();
     }
     public void porRegarSostenimiento(){
-        appendChange(new SostenimientoPorRegar()).apply();
+        appendChange(new SostenimientoPorRegar(Regado.porRegar())).apply();
     }
     public void ampliarCerca(Longitud longitud){
         Objects.requireNonNull(longitud);
